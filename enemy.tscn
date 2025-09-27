@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dysyah1hsl14t"]
+
+[ext_resource type="Script" uid="uid://ck6km0nu50u5d" path="res://scripts/enemy.gd" id="1_7k104"]
+
+[sub_resource type="Gradient" id="Gradient_7xaro"]
+colors = PackedColorArray(1, 0.37461746, 0.3067908, 1, 0.5134322, 0, 0.013812708, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7k104"]
+gradient = SubResource("Gradient_7xaro")
+fill = 1
+fill_from = Vector2(0.5071225, 0.49287748)
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_7k104")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_7k104")

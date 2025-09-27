@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlkssqr6exthe"]
+
+[sub_resource type="Gradient" id="Gradient_oi3di"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rtl8c"]
+gradient = SubResource("Gradient_oi3di")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.52136755, 0.47578347)
+fill_to = Vector2(1, 0.4871795)
+
+[node name="ActiveLightPoint" type="PointLight2D"]
+texture = SubResource("GradientTexture2D_rtl8c")
+texture_scale = 6.0

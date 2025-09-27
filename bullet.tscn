@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bacfkv31f32sj"]
+
+[ext_resource type="Script" uid="uid://cgb066e0aw3i0" path="res://scripts/bullet.gd" id="1_v7oki"]
+[ext_resource type="PackedScene" uid="uid://dlkssqr6exthe" path="res://ActiveLightPoint.tscn" id="2_v8qja"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rtl8c"]
+friction = 0.1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rtl8c"]
+size = Vector2(39, 10)
+
+[node name="Bullet" type="RigidBody2D"]
+z_index = 1
+z_as_relative = false
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_rtl8c")
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_v7oki")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_rtl8c")
+
+[node name="ActiveLightPoint" parent="." instance=ExtResource("2_v8qja")]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(71, -7)
+polygon = PackedVector2Array(-96, 0, -96, 15.999999, -47.77636, 16.101208, -47.94215, 0.00194408)
+uv = PackedVector2Array(-96, 0, -96, 15.999999, -23.999992, 15.999999, -23.999992, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

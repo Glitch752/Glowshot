@@ -17,6 +17,8 @@ extends RigidBody2D
 @onready var charging: float = randf()
 const CHARGE_TIME: float = 1.0
 
+var touchingPlayer: bool = false
+
 func _ready() -> void:
     add_to_group("enemy")
     navigation_agent.radius = 100
@@ -82,8 +84,14 @@ func _move(velocity: Vector2):
     var applied_force = (velocity - linear_velocity) * mass * 1.5
     apply_central_impulse(applied_force.normalized() * min((applied_force.length_squared()) / 100, 3000))
 
-
+    if touchingPlayer:
+        GameLoopManager.take_damage(0.075)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
     if area.is_in_group("player"):
-        GameLoopManager.take_damage(0.1)
+        GameLoopManager.take_damage(0.075)
+        touchingPlayer = true
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+    if area.is_in_group("player"):
+        touchingPlayer = false

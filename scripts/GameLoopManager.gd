@@ -14,6 +14,7 @@ signal end_wave()
 signal spawn_enemy()
 
 var end_wave_menu_open: bool = false
+var death_screen_open: bool = false
 var wave_active: bool = false
 
 var brightness_upgrade_level: int = 1
@@ -77,20 +78,40 @@ func begin_wave():
     t.tween_callback(_spawn_enemy)
     t.tween_interval(wave_spawn_interval)
 
+func reset():
+    brightness_upgrade_level = 1
+    damage_upgrade_level = 1
+    max_bullets_upgrade_level = 1
+    health = 1
+    wave = 0
+    bullets_held = max_bullets
+
+    end_wave_menu_open = false
+    death_screen_open = false
+    wave_active = false
+    wave_enemies_spawned = 0
+    wave_enemies_killed = 0
+
+    begin_wave()
+
 func _spawn_enemy():
     if wave_enemies_spawned < wave_enemies_total:
         wave_enemies_spawned += 1
         spawn_enemy.emit()
 
+const DEATH_SCREEN = preload("res://ui/DeathScreen.tscn")
+
 func _physics_process(delta: float) -> void:
     if health <= 0:
-        # TODO: Game over
-        print("game over! oops")
+        if not death_screen_open:
+            death_screen_open = true
+            var ds = DEATH_SCREEN.instantiate()
+            get_tree().current_scene.add_child(ds)
         return
     
     if health < 1:
         # Slowly regenerate health over time
-        health += delta * 0.01
+        health += delta * 0.02
 
     if wave_active and wave_enemies_spawned >= wave_enemies_total and get_tree().get_nodes_in_group("enemy").size() == 0:
         end_wave.emit()

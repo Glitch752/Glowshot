@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://dc5802x4u1llf"]
+
+[ext_resource type="Theme" uid="uid://b3h5ydir3emhr" path="res://ui/ui_theme.tres" id="1_7omqd"]
+[ext_resource type="StyleBox" uid="uid://c5j57sajmjnha" path="res://ui/stylebox/buttonNormal.tres" id="2_c1sf4"]
+[ext_resource type="Script" uid="uid://bpd38gqjqj7q4" path="res://ui/death_screen.gd" id="2_e7iop"]
+[ext_resource type="StyleBox" uid="uid://dxgglrvka5q2v" path="res://ui/stylebox/buttonActive.tres" id="3_e7iop"]
+[ext_resource type="StyleBox" uid="uid://cgheennkpdta4" path="res://ui/stylebox/buttonHover.tres" id="4_e5jq0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_v3ud7"]
+font_size = 96
+
+[sub_resource type="LabelSettings" id="LabelSettings_7omqd"]
+font_size = 56
+font_color = Color(0.7385896, 0.7385896, 0.7385896, 1)
+
+[node name="DeathScreen" type="CanvasLayer"]
+layer = 15
+script = ExtResource("2_e7iop")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.29411766)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -189.0
+offset_top = -48.0
+offset_right = 189.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7omqd")
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "You died!"
+label_settings = SubResource("LabelSettings_v3ud7")
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Survived 8 waves"
+label_settings = SubResource("LabelSettings_7omqd")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("2_c1sf4")
+theme_override_styles/pressed = ExtResource("3_e7iop")
+theme_override_styles/hover = ExtResource("4_e5jq0")
+theme_override_styles/hover_pressed = ExtResource("3_e7iop")
+text = "Try again"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

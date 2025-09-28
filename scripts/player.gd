@@ -45,6 +45,9 @@ func _physics_process(delta: float) -> void:
 
     GameLoopManager.player_pos = global_position
 
+    if GameLoopManager.death_screen_open:
+        return
+
     var mp = get_global_mouse_position() - global_position
     rotation = atan2(mp.y, mp.x)
 

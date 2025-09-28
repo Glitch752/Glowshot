@@ -7,7 +7,7 @@ const ENEMY = preload("res://enemy.tscn")
 func _ready():
     GameLoopManager.spawn_enemy.connect(spawn_enemy)
     
-    GameLoopManager.begin_wave()
+    GameLoopManager.reset()
 
 func spawn_enemy():
     # Pick random points within the nav region until we find one that isn't on screen

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://3ro037delnju"]
+
+[ext_resource type="Texture2D" uid="uid://dplmjl13nd73m" path="res://images/uiIcons.png" id="1_225cu"]
+[ext_resource type="Script" uid="uid://dho1etamkuw8c" path="res://ui/bullet_list_item.gd" id="2_6proh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6proh"]
+atlas = ExtResource("1_225cu")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fiicc"]
+atlas = ExtResource("1_225cu")
+region = Rect2(8, 0, 8, 8)
+
+[node name="BulletListItem" type="TextureRect"]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 8.0
+offset_bottom = 8.0
+texture = SubResource("AtlasTexture_6proh")
+stretch_mode = 4
+script = ExtResource("2_6proh")
+active_texture = SubResource("AtlasTexture_6proh")
+inactive_texture = SubResource("AtlasTexture_fiicc")

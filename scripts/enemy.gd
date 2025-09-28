@@ -2,6 +2,8 @@ extends RigidBody2D
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
+@export var speed: float = 300
+
 func _ready() -> void:
     add_to_group("enemy")
 
@@ -16,7 +18,7 @@ func _physics_process(delta: float) -> void:
     
     var next_position = navigation_agent.get_next_path_position()
     var direction = (next_position - global_position).normalized()
-    var target_velocity = direction * 500
+    var target_velocity = direction * speed
 
     move_and_collide(target_velocity * 1 * delta)
     

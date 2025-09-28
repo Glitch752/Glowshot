@@ -21,9 +21,13 @@ func _physics_process(delta: float) -> void:
     velocity = velocity.move_toward(target_velocity, effective_acceleration * delta)
 
     move_and_slide()
+
     for i in get_slide_collision_count():
         var collision = get_slide_collision(i)
         var collider = collision.get_collider()
+        if collider is TileMapLayer and velocity.length() > speed:
+            velocity = velocity.normalized() * speed
+        
         if collider is RigidBody2D:
             # Ensure the collider is forced outside of us immediately since we take priority
             collider.apply_impulse(collision.get_depth() * collision.get_normal() * -1 * 10, collision.get_position() - collider.global_position)
@@ -34,24 +38,30 @@ func _physics_process(delta: float) -> void:
     var mp = get_global_mouse_position() - global_position
     rotation = atan2(mp.y, mp.x)
     
-    #bullet.process_mode = Node.PROCESS_MODE_PAUSABLE if GameLoopManager.has_bullet else Node.PROCESS_MODE_DISABLED
+    active_light.intensity = GameLoopManager.bullets_held
     active_light.visible = GameLoopManager.bullets_held > 0
 
     var pressed = Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT)
     if pressed and not was_pressed:
-        # Fire a bullet
-        var bullet_direction = Vector2.RIGHT.rotated(rotation)
-        var bullet_origin = global_position + bullet_direction * GUN_DISTANCE
+        if GameLoopManager.bullets_held == 0:
+            # TODO: Play "no bullet" click sound
+            pass
+        else:
+            GameLoopManager.bullets_held -= 1
 
-        var bullet: RigidBody2D = BULLET.instantiate()
-        bullet.global_position = bullet_origin
-        bullet.rotation = rotation
-        bullet.linear_velocity = bullet_direction * 2000
+            # Fire a bullet
+            var bullet_direction = Vector2.RIGHT.rotated(rotation)
+            var bullet_origin = global_position + bullet_direction * GUN_DISTANCE
 
-        get_tree().current_scene.add_child(bullet)
+            var bullet: RigidBody2D = BULLET.instantiate()
+            bullet.global_position = bullet_origin
+            bullet.rotation = rotation
+            bullet.linear_velocity = bullet_direction * 2000
 
-        # Apply backward impulse
-        velocity -= bullet_direction * 1000
+            get_tree().current_scene.add_child(bullet)
+
+            # Apply backward impulse
+            velocity -= bullet_direction * 3000
     
     was_pressed = pressed
 

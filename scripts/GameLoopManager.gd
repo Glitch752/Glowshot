@@ -45,7 +45,7 @@ var wave: int = 0:
 var wave_enemies_spawned: int = 0
 var wave_enemies_total: int:
     get():
-        return 3 + wave * 5
+        return 3 + wave * 2
 
 var wave_enemies_killed: int = 0:
     set(val):
@@ -61,7 +61,7 @@ var wave_spawn_interval: float:
 
 var wave_enemy_health: int:
     get():
-        return 1 + ceili((wave - 1) * 0.75)
+        return 1 + floori((wave - 1) * 0.5)
 
 func take_damage(amount: float):
     health -= amount

@@ -88,6 +88,8 @@ position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_rtl8c")
 
 [node name="ActiveLightPoint" parent="." instance=ExtResource("2_v8qja")]
+energy = 0.0
+texture_scale = 1e-05
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2(83, -8)

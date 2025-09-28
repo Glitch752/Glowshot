@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://c2kt0fskrh2m6"]
+
+[ext_resource type="Script" uid="uid://b72qhiy6ogtux" path="res://ui/menu.gd" id="1_sjgy2"]
+[ext_resource type="Script" uid="uid://bee35buj3ijck" path="res://ui/menu_bullets.gd" id="2_bjurq"]
+[ext_resource type="Theme" uid="uid://b3h5ydir3emhr" path="res://ui/ui_theme.tres" id="2_cavdx"]
+[ext_resource type="StyleBox" uid="uid://c5j57sajmjnha" path="res://ui/stylebox/buttonNormal.tres" id="3_bjurq"]
+[ext_resource type="StyleBox" uid="uid://dxgglrvka5q2v" path="res://ui/stylebox/buttonActive.tres" id="4_jj6v1"]
+[ext_resource type="StyleBox" uid="uid://cgheennkpdta4" path="res://ui/stylebox/buttonHover.tres" id="5_va2jl"]
+
+[sub_resource type="Gradient" id="Gradient_nsqqj"]
+interpolation_color_space = 2
+colors = PackedColorArray(0.32, 0.21184002, 0.1536, 1, 0.37, 0.32893, 0.2331, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sjgy2"]
+gradient = SubResource("Gradient_nsqqj")
+fill_from = Vector2(0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_nsqqj"]
+font_size = 128
+
+[node name="Menu" type="CanvasLayer"]
+layer = 15
+script = ExtResource("1_sjgy2")
+
+[node name="ColorRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_sjgy2")
+
+[node name="Bullets" type="Node2D" parent="."]
+script = ExtResource("2_bjurq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -189.0
+offset_top = -48.0
+offset_right = 189.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_cavdx")
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Glowshot"
+label_settings = SubResource("LabelSettings_nsqqj")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = ExtResource("3_bjurq")
+theme_override_styles/pressed = ExtResource("4_jj6v1")
+theme_override_styles/hover = ExtResource("5_va2jl")
+theme_override_styles/hover_pressed = ExtResource("4_jj6v1")
+text = "Play"
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

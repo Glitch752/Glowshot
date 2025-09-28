@@ -22,6 +22,6 @@ func _on_restart_button_pressed() -> void:
     t.parallel().tween_property(Engine, "time_scale", 1.0, 1.0)
     t.parallel().tween_property(lowPass, "cutoff_hz", 20500, 1.0)
     t.tween_callback(func():
-        get_tree().reload_current_scene()
+        SceneTransitions.reload_level()
         queue_free()
     )

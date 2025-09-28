@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Glowshot"
-run/main_scene="uid://c0jmyxafosajg"
+run/main_scene="uid://c2kt0fskrh2m6"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameLoopManager="*res://scripts/GameLoopManager.gd"
 AudioManager="*res://AudioManager.tscn"
+SceneTransitions="*res://scripts/scene_transitions.gd"
 
 [display]
 
@@ -27,6 +28,7 @@ window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 mouse_cursor/custom_image="uid://b1r652g8di1ww"
+mouse_cursor/custom_image_hotspot=Vector2(17, 17)
 
 [input]
 

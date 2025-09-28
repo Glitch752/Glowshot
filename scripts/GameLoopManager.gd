@@ -102,6 +102,21 @@ func _spawn_enemy():
 const DEATH_SCREEN = preload("res://ui/DeathScreen.tscn")
 
 func _physics_process(delta: float) -> void:
+    var highPass: AudioEffectHighPassFilter = AudioServer.get_bus_effect(AudioServer.get_bus_index("Music"), 1)
+    # We apply more high pass filter as the furthest bullet gets farther or our health gets lower
+    var closest_bullet_dist = 10000.0
+    for b in get_tree().get_nodes_in_group("bullet"):
+        if b is Node2D:
+            closest_bullet_dist = min(closest_bullet_dist, player_pos.distance_to(b.global_position))
+    if bullets_held > 0:
+        closest_bullet_dist = 0
+    
+    var target_cutoff = lerp(2, 3000, min(1, min(
+        closest_bullet_dist / 2000.0,
+        0.5 - health * 0.5
+    )))
+    highPass.cutoff_hz = lerp(highPass.cutoff_hz, target_cutoff, delta * 5)
+
     if health <= 0:
         if not death_screen_open:
             death_screen_open = true

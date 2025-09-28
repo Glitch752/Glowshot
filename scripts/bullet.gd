@@ -40,6 +40,7 @@ func remove():
 
 func _ready():
     $Area2D.area_entered.connect(_on_enter_whatev)
+    add_to_group("bullet")
 
 func _on_enter_whatev(area: Area2D) -> void:
     var body = area.get_parent()

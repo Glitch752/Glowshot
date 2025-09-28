@@ -9,6 +9,8 @@ var was_pressed = false
 const GUN_DISTANCE = 100
 const RECOIL_AMOUNT = 500
 
+var last_footstep_sound_time = 0.0
+
 const BULLET = preload("res://bullet.tscn")
 
 func _ready() -> void:
@@ -28,6 +30,16 @@ func _physics_process(delta: float) -> void:
     velocity = velocity.move_toward(target_velocity, effective_acceleration * delta)
 
     move_and_slide()
+
+    # The faster the player moves, the louder and more frequent the footsteps
+    var footstep_volume = clamp(velocity.length() / speed, 0.0, 1.0)
+    $FootstepSounds.volume_db = lerp(-30.0, 0.0, footstep_volume)
+    $FootstepSounds.pitch_scale = randf_range(0.9, 1.1)
+    var footstep_interval = lerp(0.6, 0.2, footstep_volume)
+    last_footstep_sound_time += delta
+    if footstep_volume > 0.1 and last_footstep_sound_time >= footstep_interval:
+        last_footstep_sound_time = 0.0
+        $FootstepSounds.play()
 
     for i in get_slide_collision_count():
         var collision = get_slide_collision(i)

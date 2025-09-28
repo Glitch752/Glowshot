@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://3cen264ymfby"]
+[gd_scene load_steps=12 format=3 uid="uid://3cen264ymfby"]
 
 [ext_resource type="Script" uid="uid://4mo1bqwcdrti" path="res://scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://fu57einkva4y" path="res://images/items.png" id="2_onrkg"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://dm1qv87275gbk" path="res://scripts/player_interaction_area.gd" id="4_hqtel"]
 [ext_resource type="AudioStream" uid="uid://cndbmghib3d85" path="res://audio/gunshot.ogg" id="5_sweqy"]
 [ext_resource type="AudioStream" uid="uid://dmwweytp2q7sv" path="res://audio/emptyGunClick.ogg" id="6_2hs0m"]
+[ext_resource type="AudioStream" uid="uid://ctf8x423j4i06" path="res://audio/kenney_impact-sounds/footstep_concrete_000.ogg" id="7_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://c01myut0hebw1" path="res://images/character.png" id="8_dw050"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sh265"]
 radius = 48.09366
@@ -25,6 +27,7 @@ safe_margin = 0.1
 script = ExtResource("1_4flbx")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(63, 6)
 color = Color(0.4223941, 0.45713758, 0.6309177, 1)
 polygon = PackedVector2Array(-22.779114, -30.998806, -48.623985, -49.45943, -78.16098, -49.45943, -100.31373, -34.690933, -107.69797, -14.384249, -105.85191, 9.614557, -92.929474, 29.921242, -63.392483, 40.997612, -32.009422, 29.921242, -17.240925, -1.4618134)
@@ -41,6 +44,8 @@ texture = SubResource("AtlasTexture_i3pqv")
 offset = Vector2(-1.3999987, 3.3999999)
 
 [node name="ActiveLightPoint" parent="." instance=ExtResource("3_i3pqv")]
+energy = 0.0
+texture_scale = 1e-05
 
 [node name="InteractionArea" type="Area2D" parent="."]
 script = ExtResource("4_hqtel")
@@ -55,3 +60,12 @@ max_polyphony = 3
 [node name="EmptyGunClickSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_2hs0m")
 max_polyphony = 3
+
+[node name="FootstepSounds" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_1jxqw")
+max_polyphony = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5707964
+scale = Vector2(5, 5)
+texture = ExtResource("8_dw050")

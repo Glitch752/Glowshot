@@ -17,5 +17,6 @@ func _get_energy() -> float:
 # TODO: Flicker if 0 intensity
 
 func _ready():
-    texture_scale = _get_texture_scale()
-    energy = _get_energy()
+    if not Engine.is_editor_hint():
+        texture_scale = _get_texture_scale()
+        energy = _get_energy()

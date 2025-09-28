@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dysyah1hsl14t"]
+[gd_scene load_steps=9 format=3 uid="uid://dysyah1hsl14t"]
 
 [ext_resource type="Script" uid="uid://ck6km0nu50u5d" path="res://scripts/enemy.gd" id="1_7k104"]
 [ext_resource type="Texture2D" uid="uid://biajinbftavg7" path="res://images/enemies.png" id="2_4gyqm"]
 [ext_resource type="StyleBox" uid="uid://bcvaugsml46mk" path="res://ui/stylebox/background.tres" id="3_iifgy"]
 [ext_resource type="StyleBox" uid="uid://bjbf8tagepqev" path="res://ui/stylebox/green.tres" id="4_epg4t"]
+[ext_resource type="AudioStream" uid="uid://bixsml7aij126" path="res://audio/tinySquish.ogg" id="5_epg4t"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7k104"]
 friction = 0.1
@@ -60,6 +61,10 @@ theme_override_styles/fill = ExtResource("4_epg4t")
 max_value = 5.0
 value = 2.0
 show_percentage = false
+
+[node name="TinySquishPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_epg4t")
+max_polyphony = 4
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

@@ -80,7 +80,7 @@ mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_rtl8c")
 continuous_cd = 1
 contact_monitor = true
-max_contacts_reported = 2
+max_contacts_reported = 1
 script = ExtResource("1_v7oki")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

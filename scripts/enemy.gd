@@ -84,6 +84,8 @@ func _move(velocity: Vector2):
     var applied_force = (velocity - linear_velocity) * mass * 1.5
     apply_central_impulse(applied_force.normalized() * min((applied_force.length_squared()) / 100, 3000))
 
+    $TinySquishPlayer.play()
+
     if touchingPlayer:
         GameLoopManager.take_damage(0.075)
 

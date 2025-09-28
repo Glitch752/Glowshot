@@ -47,3 +47,9 @@ func _on_enter_whatev(area: Area2D) -> void:
     if body is RigidBody2D:
         if body.is_in_group("enemy") and can_kill():
             body.hit()
+
+func _on_body_entered(_body: Node) -> void:
+    # Essentially guarenteed to be a collision
+    # Higher velocity creates louder hit sounds
+    var volume = -20 + clamp(linear_velocity.length() / 50.0, 0, 20)
+    AudioManager.play_sound_at(preload("res://audio/kenney_impact-sounds/impactPunch_medium_003.ogg"), global_position, volume, randf_range(0.8, 1.0))

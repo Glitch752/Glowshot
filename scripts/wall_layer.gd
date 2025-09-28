@@ -4,7 +4,7 @@
 
 extends TileMapLayer
 
-@export_tool_button("Autotile") var _tool_autotile = _autotile
+@export_tool_button("Autotile") var tool_autotile = _autotile
 
 var AUTOTILE_LOOKUP: Dictionary[String, Vector2i] = {
     # Order: up, right, down, left
@@ -32,14 +32,32 @@ var AUTOTILE_LOOKUP: Dictionary[String, Vector2i] = {
     "1100": Vector2i(1, 2),
 }
 
-func _autotile():
+
+var used_cell_lookup: Dictionary[Vector2i, bool] = {}
+var unused_cell_lookup: Dictionary[Vector2i, bool] = {}
+
+func _ready():
+    update_used_cells()
+
+func filled_at_position(global_pos: Vector2) -> bool:
+    return used_cell_lookup.get(local_to_map(to_local(global_pos)), false)
+
+func update_used_cells():
+    used_cell_lookup.clear()
+    unused_cell_lookup.clear()
+
     var used_cells = get_used_cells()
-    var used_cell_lookup: Dictionary[Vector2i, bool] = {}
     for cell in used_cells:
         var tile_data = get_cell_tile_data(cell)
         if !tile_data.get_custom_data("empty"):
             used_cell_lookup[cell] = true
-    
+        else:
+            unused_cell_lookup[cell] = true
+
+func _autotile():
+    update_used_cells()
+
+    var used_cells = get_used_cells()
     for cell in used_cells:
         var tile_data = get_cell_tile_data(cell)
         if !tile_data.get_custom_data("empty"):

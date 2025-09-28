@@ -11,7 +11,14 @@ func _physics_process(delta: float) -> void:
     var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
     
     var target_velocity = direction * speed
-    velocity = velocity.move_toward(target_velocity, acceleration * delta)
+
+    # If the current velocity is within 15deg of the target and of a larger magnitude, leave it alone.
+    # Allows for silly things like gun boosts.
+    if direction != Vector2.ZERO and abs(velocity.angle_to(direction)) < deg_to_rad(15) and velocity.length() > target_velocity.length():
+        target_velocity = velocity
+    
+    var effective_acceleration = acceleration * (direction.length() * 0.75 + 0.25)
+    velocity = velocity.move_toward(target_velocity, effective_acceleration * delta)
 
     move_and_slide()
     for i in get_slide_collision_count():
@@ -42,6 +49,10 @@ func _physics_process(delta: float) -> void:
         bullet.linear_velocity = bullet_direction * 2000
 
         get_tree().current_scene.add_child(bullet)
+
+        # Apply backward impulse
+        velocity -= bullet_direction * 1000
+    
     was_pressed = pressed
 
 const GUN_DISTANCE = 100

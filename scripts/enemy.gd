@@ -19,3 +19,5 @@ func _physics_process(delta: float) -> void:
     var target_velocity = direction * 500
 
     move_and_collide(target_velocity * 1 * delta)
+    
+    preload("res://scripts/anti_wall_stuck.gd").anti_stuck(self, delta)

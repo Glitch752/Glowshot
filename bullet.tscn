@@ -1,18 +1,20 @@
-[gd_scene load_steps=16 format=3 uid="uid://bacfkv31f32sj"]
+[gd_scene load_steps=20 format=3 uid="uid://bacfkv31f32sj"]
 
 [ext_resource type="Script" uid="uid://cgb066e0aw3i0" path="res://scripts/bullet.gd" id="1_v7oki"]
 [ext_resource type="PackedScene" uid="uid://dlkssqr6exthe" path="res://ActiveLightPoint.tscn" id="2_v8qja"]
 [ext_resource type="Script" uid="uid://byi1bt4of0h7e" path="res://scripts/bullet_arrow_pointing.gd" id="3_t4vbm"]
 [ext_resource type="Texture2D" uid="uid://dplmjl13nd73m" path="res://images/uiIcons.png" id="4_2b2rl"]
+[ext_resource type="Script" uid="uid://2efh3femg4iw" path="res://scripts/continuous_gpu_particles.gd" id="5_b7duk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rtl8c"]
 friction = 0.1
+bounce = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rtl8c"]
-size = Vector2(39, 10)
+size = Vector2(24, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v8qja"]
-radius = 123.55566
+radius = 23.021729
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b7duk"]
 atlas = ExtResource("4_2b2rl")
@@ -46,24 +48,50 @@ region = Rect2(24, 0, 8, 8)
 atlas = ExtResource("4_2b2rl")
 region = Rect2(32, 0, 8, 8)
 
+[sub_resource type="Gradient" id="Gradient_2b2rl"]
+colors = PackedColorArray(0.9702609, 0.45682156, 5.3713917e-05, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b7duk"]
+gradient = SubResource("Gradient_2b2rl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t2bd8"]
+lifetime_randomness = 0.38
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(10, 10, 1)
+emission_shape = 3
+emission_box_extents = Vector3(20, 1, 1)
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 10.0
+color = Color(0.9826744, 0.4050207, 7.70092e-07, 1)
+color_initial_ramp = SubResource("GradientTexture1D_b7duk")
+
 [node name="Bullet" type="RigidBody2D"]
 z_index = 1
 z_as_relative = false
+collision_layer = 8
+collision_mask = 9
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_rtl8c")
+continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 2
 script = ExtResource("1_v7oki")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
+position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_rtl8c")
 
 [node name="ActiveLightPoint" parent="." instance=ExtResource("2_v8qja")]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2(71, -7)
-polygon = PackedVector2Array(-96, 0, -96, 15.999999, -47.77636, 16.101208, -47.94215, 0.00194408)
+position = Vector2(83, -8)
+polygon = PackedVector2Array(-96, 0, -96, 15.999999, -71.9693, 16.398817, -71.69018, 0.23270458)
 uv = PackedVector2Array(-96, 0, -96, 15.999999, -23.999992, 15.999999, -23.999992, 0)
 
 [node name="PickupRadius" type="Area2D" parent="."]
@@ -80,6 +108,21 @@ arrowTextures = Array[Texture2D]([SubResource("AtlasTexture_b7duk"), SubResource
 [node name="TextureRect" type="TextureRect" parent="ArrowPointing"]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Area2D" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_rtl8c")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+show_behind_parent = true
+rotation = -0.3351032
+amount = 300
+lifetime = 2.0
+visibility_rect = Rect2(-1000, -1000, 2000, 2000)
+process_material = SubResource("ParticleProcessMaterial_t2bd8")
+script = ExtResource("5_b7duk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="PickupRadius" to="." method="_on_pickup_radius_area_entered"]

@@ -39,7 +39,9 @@ func _physics_process(delta: float) -> void:
 
     var mp = get_global_mouse_position() - global_position
     rotation = atan2(mp.y, mp.x)
-    
+
+    scale.y = -1 if mp.x <= 0 else 1
+     
     active_light.intensity = GameLoopManager.bullets_held
     active_light.visible = GameLoopManager.bullets_held > 0
 
@@ -48,7 +50,7 @@ func _physics_process(delta: float) -> void:
         var bullet_direction = Vector2.RIGHT.rotated(rotation)
         var bullet_origin = global_position + bullet_direction * GUN_DISTANCE
         
-        var tilemap: TileMapLayer = get_tree().current_scene.get_node("WallLayer")
+        var tilemap: TileMapLayer = get_tree().current_scene.get_node("%WallLayer")
         if GameLoopManager.bullets_held == 0 or tilemap.filled_at_position(bullet_origin):
             # TODO: Play "no bullet" click sound
             pass

@@ -1,7 +1,7 @@
 extends Node
 
 static func anti_stuck(node: Node2D, delta: float):
-    var tilemap: TileMapLayer = node.get_tree().current_scene.get_node("WallLayer")
+    var tilemap: TileMapLayer = node.get_tree().current_scene.get_node("%WallLayer")
     if tilemap.filled_at_position(node.global_position):
         # node.modulate = Color.BLUE * randf()
 

@@ -6,6 +6,7 @@ extends RigidBody2D
 
 func _ready() -> void:
     add_to_group("enemy")
+    navigation_agent.radius = 100
 
 func kill():
     queue_free()
@@ -23,3 +24,8 @@ func _physics_process(delta: float) -> void:
     move_and_collide(target_velocity * 1 * delta)
     
     preload("res://scripts/anti_wall_stuck.gd").anti_stuck(self, delta)
+
+    queue_redraw()
+
+func _draw():
+    draw_line(Vector2(0, 0), navigation_agent.get_next_path_position() - global_position, Color.GREEN, 5)

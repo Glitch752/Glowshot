@@ -26,6 +26,7 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+mouse_cursor/custom_image="uid://b1r652g8di1ww"
 
 [input]
 
@@ -58,9 +59,18 @@ move_right={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Generic"
+2d_navigation/layer_1="Walls"
+2d_physics/layer_2="Player"
+2d_navigation/layer_2="Enemy wall pathing"
+2d_physics/layer_3="Enemies"
+2d_physics/layer_4="Bullet"
+
 [physics]
 
-2d/physics_engine="Rapier2D"
+2d/physics_engine="GodotPhysics2D"
 2d/default_gravity=0.0
 
 [rendering]

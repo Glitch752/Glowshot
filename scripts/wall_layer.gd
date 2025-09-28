@@ -49,7 +49,7 @@ func update_used_cells():
     var used_cells = get_used_cells()
     for cell in used_cells:
         var tile_data = get_cell_tile_data(cell)
-        if !tile_data.get_custom_data("empty"):
+        if tile_data:
             used_cell_lookup[cell] = true
         else:
             unused_cell_lookup[cell] = true
@@ -60,7 +60,7 @@ func _autotile():
     var used_cells = get_used_cells()
     for cell in used_cells:
         var tile_data = get_cell_tile_data(cell)
-        if !tile_data.get_custom_data("empty"):
+        if tile_data:
             var key = ""
             key += "1" if used_cell_lookup.has(cell + Vector2i(0, -1)) else "0"
             key += "1" if used_cell_lookup.has(cell + Vector2i(1, 0)) else "0"

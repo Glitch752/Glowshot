@@ -1,16 +1,28 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfqsqkse5ya56"]
+[gd_scene load_steps=16 format=3 uid="uid://cfqsqkse5ya56"]
 
 [ext_resource type="Theme" uid="uid://b3h5ydir3emhr" path="res://ui/ui_theme.tres" id="1_nwk5d"]
 [ext_resource type="PackedScene" uid="uid://3ro037delnju" path="res://ui/bulletListItem.tscn" id="2_iyk4s"]
 [ext_resource type="Script" uid="uid://dluse3ltetbjm" path="res://ui/bullet_list.gd" id="2_qi0ca"]
+[ext_resource type="Script" uid="uid://cke43bvvwrsg3" path="res://ui/wave_label.gd" id="2_x1h04"]
 [ext_resource type="Texture2D" uid="uid://dplmjl13nd73m" path="res://images/uiIcons.png" id="4_okjyp"]
 [ext_resource type="StyleBox" uid="uid://bcvaugsml46mk" path="res://ui/stylebox/background.tres" id="5_ic7kd"]
 [ext_resource type="StyleBox" uid="uid://bjbf8tagepqev" path="res://ui/stylebox/green.tres" id="6_3kqj3"]
 [ext_resource type="Script" uid="uid://cu3b1r4cfo1ge" path="res://ui/health_bar.gd" id="7_3kqj3"]
+[ext_resource type="PackedScene" uid="uid://dpyfu46dnjfu8" path="res://ui/UpgradeSelection.tscn" id="8_s10dr"]
+[ext_resource type="StyleBox" uid="uid://pyypqdkcwqby" path="res://ui/stylebox/red.tres" id="9_0e2gs"]
+[ext_resource type="Script" uid="uid://bvm0f8auhrcs5" path="res://ui/wave_bar.gd" id="9_hbdh6"]
+[ext_resource type="Script" uid="uid://338b5flknesn" path="res://ui/containers/stack_container.gd" id="12_mn07b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fiicc"]
 atlas = ExtResource("4_okjyp")
 region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mn07b"]
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_x1h04"]
+font_size = 32
+font_color = Color(0.6310349, 0.631035, 0.6310349, 1)
 
 [node name="LevelUI" type="Control"]
 layout_mode = 3
@@ -23,21 +35,25 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_nwk5d")
 
-[node name="Label" type="RichTextLabel" parent="."]
+[node name="WaveLabel" type="Container" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -69.0
-offset_top = 40.0
-offset_right = 78.0
-offset_bottom = 179.0
+offset_left = -147.0
+offset_top = 208.0
+offset_right = 147.0
+offset_bottom = 308.0
 grow_horizontal = 2
+script = ExtResource("2_x1h04")
+metadata/_custom_type_script = "uid://dbvaug0wkunf0"
+
+[node name="Label" type="RichTextLabel" parent="WaveLabel"]
+layout_mode = 2
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
-text = "[font_size=50]Wave 5[/font_size]
-
-idk atp"
+text = "[font_size=100]Wave 5[/font_size]"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -67,6 +83,23 @@ texture = SubResource("AtlasTexture_fiicc")
 layout_mode = 2
 texture = SubResource("AtlasTexture_fiicc")
 
+[node name="HealthLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -139.0
+offset_top = -116.0
+offset_right = -40.0
+offset_bottom = -80.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Health"
+label_settings = SubResource("LabelSettings_mn07b")
+vertical_alignment = 2
+
 [node name="HealthBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(500, 32)
 layout_mode = 1
@@ -88,3 +121,49 @@ step = 0.0
 value = 0.5
 show_percentage = false
 script = ExtResource("7_3kqj3")
+
+[node name="UpgradeSelection" parent="." instance=ExtResource("8_s10dr")]
+visible = false
+layout_mode = 1
+
+[node name="WaveBar" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_top = 24.0
+offset_right = 500.0
+offset_bottom = 88.0
+grow_horizontal = 2
+
+[node name="WaveBar" type="ProgressBar" parent="WaveBar"]
+custom_minimum_size = Vector2(1000, 24)
+layout_mode = 2
+theme_override_styles/background = ExtResource("5_ic7kd")
+theme_override_styles/fill = ExtResource("9_0e2gs")
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false
+script = ExtResource("9_hbdh6")
+
+[node name="StackContainer" type="Container" parent="WaveBar"]
+layout_mode = 2
+script = ExtResource("12_mn07b")
+metadata/_custom_type_script = "uid://338b5flknesn"
+
+[node name="WaveLabel2" type="Label" parent="WaveBar/StackContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Wave 1"
+label_settings = SubResource("LabelSettings_mn07b")
+vertical_alignment = 2
+
+[node name="WaveLabel3" type="Label" parent="WaveBar/StackContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "10 enemies remain"
+label_settings = SubResource("LabelSettings_x1h04")
+horizontal_alignment = 1
+vertical_alignment = 2

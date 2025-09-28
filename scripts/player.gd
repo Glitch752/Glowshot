@@ -11,6 +11,9 @@ const RECOIL_AMOUNT = 500
 
 const BULLET = preload("res://bullet.tscn")
 
+func _ready() -> void:
+    add_to_group("player_body")
+
 func _physics_process(delta: float) -> void:
     var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
     
@@ -34,7 +37,10 @@ func _physics_process(delta: float) -> void:
         
         if collider is RigidBody2D:
             # Ensure the collider is forced outside of us immediately since we take priority
-            collider.apply_impulse(collision.get_depth() * collision.get_normal() * -1 * 10, collision.get_position() - collider.global_position)
+            var impulse = collision.get_depth() * collision.get_normal() * -1 * 10
+            if impulse.length_squared() > 36:
+                impulse = impulse.normalized() * 6
+            collider.apply_impulse(impulse, collision.get_position() - collider.global_position)
             collider.apply_force(collision.get_normal() * velocity.length() * -30, collision.get_position() - collider.global_position)
 
     GameLoopManager.player_pos = global_position

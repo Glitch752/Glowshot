@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpyfu46dnjfu8"]
+
+[ext_resource type="StyleBox" uid="uid://bcvaugsml46mk" path="res://ui/stylebox/background.tres" id="1_ssfoe"]
+[ext_resource type="Texture2D" uid="uid://cie2eor3ptnse" path="res://images/largeIcons.png" id="2_pvql0"]
+[ext_resource type="StyleBox" uid="uid://c5j57sajmjnha" path="res://ui/stylebox/buttonNormal.tres" id="2_r4qwd"]
+[ext_resource type="StyleBox" uid="uid://cgheennkpdta4" path="res://ui/stylebox/buttonHover.tres" id="3_r4qwd"]
+[ext_resource type="StyleBox" uid="uid://dxgglrvka5q2v" path="res://ui/stylebox/buttonActive.tres" id="3_sektb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4qwd"]
+atlas = ExtResource("2_pvql0")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sektb"]
+atlas = ExtResource("2_pvql0")
+region = Rect2(24, 0, 24, 24)
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -174.0
+offset_right = 290.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_ssfoe")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = ExtResource("2_r4qwd")
+theme_override_styles/pressed = ExtResource("3_sektb")
+theme_override_styles/hover = ExtResource("3_r4qwd")
+theme_override_styles/hover_pressed = ExtResource("3_sektb")
+text = "Upgrade brightness"
+icon = SubResource("AtlasTexture_r4qwd")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = ExtResource("2_r4qwd")
+theme_override_styles/pressed = ExtResource("3_sektb")
+theme_override_styles/hover = ExtResource("3_r4qwd")
+theme_override_styles/hover_pressed = ExtResource("3_sektb")
+text = "Upgrade damage"
+icon = SubResource("AtlasTexture_sektb")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true

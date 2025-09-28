@@ -21,14 +21,22 @@ func remove():
     # Then, turn off spawning new particles and remove it after a full loop is completed.
     var particles: GPUParticles2D = $GPUParticles2D
     particles.reparent(get_tree().current_scene)
+
+    # Not sure why particles.finished doesn't fire but whatever this works
+    var t = Timer.new()
+    t.one_shot = true
+    t.wait_time = particles.lifetime
+    t.timeout.connect(func():
+        particles.queue_free()
+        t.queue_free()
+    )
+    get_tree().current_scene.add_child(t)
+    t.start()
+
     particles.one_shot = true
+    particles.show_behind_parent = false
 
     queue_free()
-
-    print("wow")
-    await particles.finished
-    particles.queue_free()
-    print("Freed particles")
 
 func _ready():
     $Area2D.area_entered.connect(_on_enter_whatev)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://3cen264ymfby"]
+[gd_scene load_steps=8 format=3 uid="uid://3cen264ymfby"]
 
 [ext_resource type="Script" uid="uid://4mo1bqwcdrti" path="res://scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://fu57einkva4y" path="res://images/items.png" id="2_onrkg"]
@@ -7,9 +7,6 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sh265"]
 radius = 48.09366
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3pqv"]
-size = Vector2(68, 27)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i3pqv"]
 atlas = ExtResource("2_onrkg")
@@ -21,6 +18,7 @@ radius = 58.21512
 z_index = 10
 collision_layer = 0
 collision_mask = 3
+motion_mode = 1
 safe_margin = 0.1
 script = ExtResource("1_4flbx")
 
@@ -32,10 +30,6 @@ uv = PackedVector2Array(-62.335327, -73.33369, -227.6687, -45.333687, -123.6687,
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_sh265")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(72, -0.5)
-shape = SubResource("RectangleShape2D_i3pqv")
 
 [node name="Weapon" type="Sprite2D" parent="."]
 show_behind_parent = true

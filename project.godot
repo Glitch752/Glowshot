@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameLoopManager="*res://scripts/GameLoopManager.gd"
+AudioManager="*res://AudioManager.tscn"
 
 [display]
 
@@ -59,6 +60,7 @@ move_right={
 
 [physics]
 
+2d/physics_engine="Rapier2D"
 2d/default_gravity=0.0
 
 [rendering]

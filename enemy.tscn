@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ck6km0nu50u5d" path="res://scripts/enemy.gd" id="1_7k104"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7k104"]
-rough = true
+friction = 0.1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7k104"]
 size = Vector2(64, 64)
@@ -19,6 +19,7 @@ fill_from = Vector2(0.5071225, 0.49287748)
 [node name="Enemy" type="RigidBody2D"]
 collision_mask = 3
 collision_priority = 0.1
+mass = 4.0
 physics_material_override = SubResource("PhysicsMaterial_7k104")
 script = ExtResource("1_7k104")
 

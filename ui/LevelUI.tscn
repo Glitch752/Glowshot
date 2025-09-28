@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfqsqkse5ya56"]
+[gd_scene load_steps=9 format=3 uid="uid://cfqsqkse5ya56"]
 
 [ext_resource type="Theme" uid="uid://b3h5ydir3emhr" path="res://ui/ui_theme.tres" id="1_nwk5d"]
 [ext_resource type="PackedScene" uid="uid://3ro037delnju" path="res://ui/bulletListItem.tscn" id="2_iyk4s"]
 [ext_resource type="Script" uid="uid://dluse3ltetbjm" path="res://ui/bullet_list.gd" id="2_qi0ca"]
+[ext_resource type="Texture2D" uid="uid://dplmjl13nd73m" path="res://images/uiIcons.png" id="4_okjyp"]
+[ext_resource type="StyleBox" uid="uid://bcvaugsml46mk" path="res://ui/stylebox/background.tres" id="5_ic7kd"]
+[ext_resource type="StyleBox" uid="uid://bjbf8tagepqev" path="res://ui/stylebox/green.tres" id="6_3kqj3"]
+[ext_resource type="Script" uid="uid://cu3b1r4cfo1ge" path="res://ui/health_bar.gd" id="7_3kqj3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fiicc"]
+atlas = ExtResource("4_okjyp")
+region = Rect2(8, 0, 8, 8)
 
 [node name="LevelUI" type="Control"]
 layout_mode = 3
@@ -49,9 +57,34 @@ script = ExtResource("2_qi0ca")
 
 [node name="BulletListItem" parent="BulletList" instance=ExtResource("2_iyk4s")]
 layout_mode = 2
+texture = SubResource("AtlasTexture_fiicc")
 
 [node name="BulletListItem2" parent="BulletList" instance=ExtResource("2_iyk4s")]
 layout_mode = 2
+texture = SubResource("AtlasTexture_fiicc")
 
 [node name="BulletListItem3" parent="BulletList" instance=ExtResource("2_iyk4s")]
 layout_mode = 2
+texture = SubResource("AtlasTexture_fiicc")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(500, 32)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -532.0
+offset_top = -72.0
+offset_right = -32.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/background = ExtResource("5_ic7kd")
+theme_override_styles/fill = ExtResource("6_3kqj3")
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false
+script = ExtResource("7_3kqj3")

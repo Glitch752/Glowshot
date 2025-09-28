@@ -6,6 +6,8 @@ extends CharacterBody2D
 @onready var active_light: PointLight2D = $ActiveLightPoint
 
 var was_pressed = false
+const GUN_DISTANCE = 100
+const BULLET = preload("res://bullet.tscn")
 
 func _physics_process(delta: float) -> void:
     var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -43,27 +45,25 @@ func _physics_process(delta: float) -> void:
 
     var pressed = Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT)
     if pressed and not was_pressed:
-        if GameLoopManager.bullets_held == 0:
+        var bullet_direction = Vector2.RIGHT.rotated(rotation)
+        var bullet_origin = global_position + bullet_direction * GUN_DISTANCE
+        
+        var tilemap: TileMapLayer = get_tree().current_scene.get_node("WallLayer")
+        if GameLoopManager.bullets_held == 0 or tilemap.filled_at_position(bullet_origin):
             # TODO: Play "no bullet" click sound
             pass
         else:
-            GameLoopManager.bullets_held -= 1
-
             # Fire a bullet
-            var bullet_direction = Vector2.RIGHT.rotated(rotation)
-            var bullet_origin = global_position + bullet_direction * GUN_DISTANCE
+            GameLoopManager.bullets_held -= 1
 
             var bullet: RigidBody2D = BULLET.instantiate()
             bullet.global_position = bullet_origin
             bullet.rotation = rotation
-            bullet.linear_velocity = bullet_direction * 2000
+            bullet.linear_velocity = bullet_direction * 3000
 
             get_tree().current_scene.add_child(bullet)
 
             # Apply backward impulse
-            velocity -= bullet_direction * 3000
+            velocity -= bullet_direction * 300
     
     was_pressed = pressed
-
-const GUN_DISTANCE = 100
-const BULLET = preload("res://bullet.tscn")

@@ -150,5 +150,6 @@ position = Vector2(30, -121)
 color = Color(0.029506557, 0.029506557, 0.029506557, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="LevelUI" parent="CanvasLayer" instance=ExtResource("7_n6hdu")]

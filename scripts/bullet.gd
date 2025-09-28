@@ -3,7 +3,7 @@ extends RigidBody2D
 @onready var spawn_time = Time.get_ticks_msec()
 
 func _on_body_entered(body: Node) -> void:
-    if body.is_in_group("enemy"):
+    if body.is_in_group("enemy") and linear_velocity.length() > 300:
         body.kill()
 
 func _physics_process(delta: float):

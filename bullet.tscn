@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bacfkv31f32sj"]
+[gd_scene load_steps=16 format=3 uid="uid://bacfkv31f32sj"]
 
 [ext_resource type="Script" uid="uid://cgb066e0aw3i0" path="res://scripts/bullet.gd" id="1_v7oki"]
 [ext_resource type="PackedScene" uid="uid://dlkssqr6exthe" path="res://ActiveLightPoint.tscn" id="2_v8qja"]
+[ext_resource type="Script" uid="uid://byi1bt4of0h7e" path="res://scripts/bullet_arrow_pointing.gd" id="3_t4vbm"]
+[ext_resource type="Texture2D" uid="uid://dplmjl13nd73m" path="res://images/uiIcons.png" id="4_2b2rl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rtl8c"]
 friction = 0.1
@@ -11,6 +13,38 @@ size = Vector2(39, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v8qja"]
 radius = 123.55566
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7duk"]
+atlas = ExtResource("4_2b2rl")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2bd8"]
+atlas = ExtResource("4_2b2rl")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0pa3"]
+atlas = ExtResource("4_2b2rl")
+region = Rect2(56, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ol1o"]
+atlas = ExtResource("4_2b2rl")
+region = Rect2(64, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gofb6"]
+atlas = ExtResource("4_2b2rl")
+region = Rect2(72, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bibm"]
+atlas = ExtResource("4_2b2rl")
+region = Rect2(80, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_as0xd"]
+atlas = ExtResource("4_2b2rl")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2eep6"]
+atlas = ExtResource("4_2b2rl")
+region = Rect2(32, 0, 8, 8)
 
 [node name="Bullet" type="RigidBody2D"]
 z_index = 1
@@ -37,6 +71,15 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupRadius"]
 shape = SubResource("CircleShape2D_v8qja")
+
+[node name="ArrowPointing" type="CanvasLayer" parent="."]
+layer = 2
+script = ExtResource("3_t4vbm")
+arrowTextures = Array[Texture2D]([SubResource("AtlasTexture_b7duk"), SubResource("AtlasTexture_t2bd8"), SubResource("AtlasTexture_h0pa3"), SubResource("AtlasTexture_6ol1o"), SubResource("AtlasTexture_gofb6"), SubResource("AtlasTexture_4bibm"), SubResource("AtlasTexture_as0xd"), SubResource("AtlasTexture_2eep6")])
+
+[node name="TextureRect" type="TextureRect" parent="ArrowPointing"]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="PickupRadius" to="." method="_on_pickup_radius_area_entered"]

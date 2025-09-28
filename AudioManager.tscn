@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://jsyucxafw41a"]
+
+[ext_resource type="AudioStream" uid="uid://dw68rq1jjhaos" path="res://audio/unregisteredFirearm.ogg" id="1_2nh25"]
+
+[node name="AudioManager" type="Node"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_2nh25")
+autoplay = true

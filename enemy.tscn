@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dysyah1hsl14t"]
+[gd_scene load_steps=8 format=3 uid="uid://dysyah1hsl14t"]
 
 [ext_resource type="Script" uid="uid://ck6km0nu50u5d" path="res://scripts/enemy.gd" id="1_7k104"]
 [ext_resource type="Texture2D" uid="uid://biajinbftavg7" path="res://images/enemies.png" id="2_4gyqm"]
+[ext_resource type="StyleBox" uid="uid://bcvaugsml46mk" path="res://ui/stylebox/background.tres" id="3_iifgy"]
+[ext_resource type="StyleBox" uid="uid://bjbf8tagepqev" path="res://ui/stylebox/green.tres" id="4_epg4t"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7k104"]
 friction = 0.1
@@ -43,5 +45,20 @@ texture = SubResource("AtlasTexture_qi2p4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_7k104")
+
+[node name="HealthBarContainer" type="Node2D" parent="."]
+top_level = true
+
+[node name="HealthBar" type="ProgressBar" parent="HealthBarContainer"]
+unique_name_in_owner = true
+offset_left = -56.0
+offset_top = -56.0
+offset_right = 56.0
+offset_bottom = -32.0
+theme_override_styles/background = ExtResource("3_iifgy")
+theme_override_styles/fill = ExtResource("4_epg4t")
+max_value = 5.0
+value = 2.0
+show_percentage = false
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

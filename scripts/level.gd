@@ -30,4 +30,6 @@ func spawn_enemy():
     
     var enemy = ENEMY.instantiate()
     enemy.global_position = spawn_pos
+    enemy.max_health = GameLoopManager.wave_enemy_health
+    enemy.health = GameLoopManager.wave_enemy_health
     add_child(enemy)

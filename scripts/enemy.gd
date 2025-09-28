@@ -4,6 +4,16 @@ extends RigidBody2D
 
 @export var speed: float = 400
 
+@export var max_health: int = 1:
+    set(val):
+        max_health = val
+        $%HealthBar.max_value = val
+@export var health: int = 1:
+    set(val):
+        health = val
+        $%HealthBar.visible = val != max_health and val != 0
+        $%HealthBar.value = val
+
 @onready var charging: float = randf()
 const CHARGE_TIME: float = 1.0
 
@@ -14,6 +24,15 @@ func _ready() -> void:
 
     var discrete_nice_hues = [0, 30, 60, 120, 180, 240, 300]
     $Sprite2D.modulate.h = discrete_nice_hues[randi() % discrete_nice_hues.size()] / 360.0
+    
+    $%HealthBar.visible = false
+
+func hit():
+    health -= GameLoopManager.damage_upgrade_level
+    if health <= 0:
+        kill()
+    else:
+        AudioManager.play_sound_at(preload("res://audio/squish.ogg"), global_position, 4)
 
 func kill():
     queue_free()
@@ -26,9 +45,12 @@ func kill():
 
     AudioManager.play_sound_at(preload("res://audio/squish.ogg"), global_position, 4)
 
+func _process(_delta: float):
+    $HealthBarContainer.global_position = global_position
+
 func _physics_process(delta: float) -> void:
     navigation_agent.target_position = GameLoopManager.player_pos
-
+    
     if navigation_agent.is_navigation_finished():
         return
     
@@ -36,7 +58,7 @@ func _physics_process(delta: float) -> void:
     var direction = (next_position - global_position).normalized()
     var target_velocity = direction * speed
     navigation_agent.velocity = target_velocity
-    
+        
     preload("res://scripts/anti_wall_stuck.gd").anti_stuck(self, delta)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:

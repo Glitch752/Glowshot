@@ -79,10 +79,6 @@ texture = SubResource("AtlasTexture_fiicc")
 layout_mode = 2
 texture = SubResource("AtlasTexture_fiicc")
 
-[node name="BulletListItem3" parent="BulletList" instance=ExtResource("2_iyk4s")]
-layout_mode = 2
-texture = SubResource("AtlasTexture_fiicc")
-
 [node name="HealthLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 3

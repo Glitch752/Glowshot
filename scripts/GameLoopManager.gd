@@ -2,6 +2,7 @@ extends Node
 
 var player_pos: Vector2 = Vector2.ZERO
 
+signal max_bullets_changed(new: int)
 signal bullets_changed(new: int)
 signal health_changed(new: float)
 signal wave_changed(new: int)
@@ -13,12 +14,19 @@ signal end_wave()
 signal spawn_enemy()
 
 var end_wave_menu_open: bool = false
+var wave_active: bool = false
 
 var brightness_upgrade_level: int = 1
 var damage_upgrade_level: int = 1
+var max_bullets_upgrade_level: int = 1:
+    set(val):
+        max_bullets = 1 + val
 
-var max_bullets: int = 3
-var bullets_held: int = 3:
+var max_bullets: int = 2:
+    set(val):
+        max_bullets = val
+        max_bullets_changed.emit(val)
+var bullets_held: int = 2:
     set(val):
         bullets_held = val
         bullets_changed.emit(val)
@@ -36,8 +44,7 @@ var wave: int = 0:
 var wave_enemies_spawned: int = 0
 var wave_enemies_total: int:
     get():
-        # return 3 + wave * 5
-        return 1
+        return 3 + wave * 5
 
 var wave_enemies_killed: int = 0:
     set(val):
@@ -51,6 +58,10 @@ var wave_spawn_interval: float:
     get():
         return 30.0 / wave_enemies_total
 
+var wave_enemy_health: int:
+    get():
+        return 1 + ceili((wave - 1) * 0.75)
+
 func take_damage(amount: float):
     health -= amount
     # TODO: hit sounds and juice
@@ -59,12 +70,12 @@ func begin_wave():
     wave += 1
     wave_enemies_spawned = 0
     wave_enemies_killed = 0
+    wave_active = true
 
     var t = create_tween()
     t.set_loops(wave_enemies_total)
     t.tween_callback(_spawn_enemy)
     t.tween_interval(wave_spawn_interval)
-    t.play()
 
 func _spawn_enemy():
     if wave_enemies_spawned < wave_enemies_total:
@@ -81,5 +92,6 @@ func _physics_process(delta: float) -> void:
         # Slowly regenerate health over time
         health += delta * 0.01
 
-    if wave_enemies_spawned >= wave_enemies_total and get_tree().get_nodes_in_group("enemy").size() == 0:
+    if wave_active and wave_enemies_spawned >= wave_enemies_total and get_tree().get_nodes_in_group("enemy").size() == 0:
         end_wave.emit()
+        wave_active = false

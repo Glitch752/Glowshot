@@ -45,4 +45,4 @@ func _on_enter_whatev(area: Area2D) -> void:
     var body = area.get_parent()
     if body is RigidBody2D:
         if body.is_in_group("enemy") and can_kill():
-            body.kill()
+            body.hit()

@@ -20,5 +20,5 @@ metadata/_snap_enabled = true
 shadow_enabled = true
 shadow_filter = 1
 texture = SubResource("GradientTexture2D_rtl8c")
-texture_scale = 6.0
+texture_scale = 5.0
 script = ExtResource("1_vs3k0")

@@ -7,7 +7,7 @@ func can_kill() -> bool:
 
 func _physics_process(delta: float):
     preload("res://scripts/anti_wall_stuck.gd").anti_stuck(self, delta)
-    set_collision_layer_value(0, !can_kill())
+    set_collision_layer_value(1, !can_kill())
 
 func _on_pickup_radius_area_entered(body: Node2D) -> void:
     if Time.get_ticks_msec() - spawn_time < 250:
@@ -16,6 +16,19 @@ func _on_pickup_radius_area_entered(body: Node2D) -> void:
     if body.is_in_group("player"):
         body.pick_up_bullet(self)
 
+func remove():
+    # Move the particle system to the top leve of the scene at our current position so it continues after we're removed
+    # Then, turn off spawning new particles and remove it after a full loop is completed.
+    var particles: GPUParticles2D = $GPUParticles2D
+    particles.reparent(get_tree().current_scene)
+    particles.one_shot = true
+
+    queue_free()
+
+    print("wow")
+    await particles.finished
+    particles.queue_free()
+    print("Freed particles")
 
 func _ready():
     $Area2D.area_entered.connect(_on_enter_whatev)

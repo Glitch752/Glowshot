@@ -7,6 +7,8 @@ extends CharacterBody2D
 
 var was_pressed = false
 const GUN_DISTANCE = 100
+const RECOIL_AMOUNT = 500
+
 const BULLET = preload("res://bullet.tscn")
 
 func _physics_process(delta: float) -> void:
@@ -33,7 +35,7 @@ func _physics_process(delta: float) -> void:
         if collider is RigidBody2D:
             # Ensure the collider is forced outside of us immediately since we take priority
             collider.apply_impulse(collision.get_depth() * collision.get_normal() * -1 * 10, collision.get_position() - collider.global_position)
-            collider.apply_force(collision.get_normal() * velocity.length() * -3, collision.get_position() - collider.global_position)
+            collider.apply_force(collision.get_normal() * velocity.length() * -30, collision.get_position() - collider.global_position)
 
     GameLoopManager.player_pos = global_position
 
@@ -41,7 +43,7 @@ func _physics_process(delta: float) -> void:
     rotation = atan2(mp.y, mp.x)
 
     scale.y = -1 if mp.x <= 0 else 1
-     
+
     active_light.intensity = GameLoopManager.bullets_held
     active_light.visible = GameLoopManager.bullets_held > 0
 
@@ -66,6 +68,6 @@ func _physics_process(delta: float) -> void:
             get_tree().current_scene.add_child(bullet)
 
             # Apply backward impulse
-            velocity -= bullet_direction * 300
+            velocity -= bullet_direction * RECOIL_AMOUNT
     
     was_pressed = pressed

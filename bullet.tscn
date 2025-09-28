@@ -14,7 +14,7 @@ bounce = 1.0
 size = Vector2(24, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v8qja"]
-radius = 23.021729
+radius = 64.03124
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b7duk"]
 atlas = ExtResource("4_2b2rl")

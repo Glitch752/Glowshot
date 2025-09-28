@@ -2,11 +2,12 @@ extends RigidBody2D
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
-@export var speed: float = 300
+@export var speed: float = 400
 
 func _ready() -> void:
     add_to_group("enemy")
     navigation_agent.radius = 100
+    navigation_agent.velocity_computed.connect(_move)
 
 func kill():
     queue_free()
@@ -20,12 +21,11 @@ func _physics_process(delta: float) -> void:
     var next_position = navigation_agent.get_next_path_position()
     var direction = (next_position - global_position).normalized()
     var target_velocity = direction * speed
-
-    move_and_collide(target_velocity * 1 * delta)
+    navigation_agent.velocity = target_velocity
     
     preload("res://scripts/anti_wall_stuck.gd").anti_stuck(self, delta)
 
-    queue_redraw()
-
-func _draw():
-    draw_line(Vector2(0, 0), navigation_agent.get_next_path_position() - global_position, Color.GREEN, 5)
+func _move(velocity: Vector2):
+    # move_and_collide(velocity * get_viewport().get_process_delta_time())
+    var applied_force = (velocity - linear_velocity) * mass * 10
+    apply_central_force(applied_force)

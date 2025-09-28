@@ -17,7 +17,10 @@ var health: float = 1:
         health = val
         health_changed.emit(val)
 
-var wave: int = 1:
+var wave: int = 0:
     set(val):
         wave = val
         wave_changed.emit(val)
+
+func begin_wave():
+    wave += 1

@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://bw60ernv78fm8"]
+
+[ext_resource type="Script" uid="uid://c2ks1tx3uoclr" path="res://scripts/enemy_death_particles.gd" id="1_khjrv"]
+
+[sub_resource type="Gradient" id="Gradient_i35iu"]
+colors = PackedColorArray(0.6310349, 0.631035, 0.6310349, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_khjrv"]
+gradient = SubResource("Gradient_i35iu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i35iu"]
+lifetime_randomness = 0.79
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(40, 40, 1)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 19.02
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 6.0
+color = Color(1, 0.45, 0.45, 1)
+color_initial_ramp = SubResource("GradientTexture1D_khjrv")
+hue_variation_min = -0.050000023
+hue_variation_max = 0.049999975
+
+[node name="EnemyDeathParticles" type="Node2D"]
+script = ExtResource("1_khjrv")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 250
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_i35iu")

@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://3cen264ymfby"]
+[gd_scene load_steps=10 format=3 uid="uid://3cen264ymfby"]
 
 [ext_resource type="Script" uid="uid://4mo1bqwcdrti" path="res://scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://fu57einkva4y" path="res://images/items.png" id="2_onrkg"]
 [ext_resource type="PackedScene" uid="uid://dlkssqr6exthe" path="res://ActiveLightPoint.tscn" id="3_i3pqv"]
 [ext_resource type="Script" uid="uid://dm1qv87275gbk" path="res://scripts/player_interaction_area.gd" id="4_hqtel"]
+[ext_resource type="AudioStream" uid="uid://cndbmghib3d85" path="res://audio/gunshot.ogg" id="5_sweqy"]
+[ext_resource type="AudioStream" uid="uid://dmwweytp2q7sv" path="res://audio/emptyGunClick.ogg" id="6_2hs0m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sh265"]
 radius = 48.09366
@@ -45,3 +47,11 @@ script = ExtResource("4_hqtel")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("CircleShape2D_i3pqv")
+
+[node name="GunshotSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_sweqy")
+max_polyphony = 3
+
+[node name="EmptyGunClickSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_2hs0m")
+max_polyphony = 3

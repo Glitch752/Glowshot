@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://jsyucxafw41a"]
+[gd_scene load_steps=3 format=3 uid="uid://jsyucxafw41a"]
 
 [ext_resource type="AudioStream" uid="uid://dw68rq1jjhaos" path="res://audio/unregisteredFirearm.ogg" id="1_2nh25"]
+[ext_resource type="Script" uid="uid://bmcb3woq55cv0" path="res://scripts/audio_manager.gd" id="1_d16gy"]
 
 [node name="AudioManager" type="Node"]
+script = ExtResource("1_d16gy")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_2nh25")
+volume_db = -2.0
 autoplay = true

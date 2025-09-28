@@ -136,6 +136,7 @@ offset_top = 24.0
 offset_right = 500.0
 offset_bottom = 88.0
 grow_horizontal = 2
+script = ExtResource("9_hbdh6")
 
 [node name="WaveBar" type="ProgressBar" parent="WaveBar"]
 custom_minimum_size = Vector2(1000, 24)
@@ -146,21 +147,22 @@ max_value = 1.0
 step = 0.0
 value = 0.5
 show_percentage = false
-script = ExtResource("9_hbdh6")
 
 [node name="StackContainer" type="Container" parent="WaveBar"]
 layout_mode = 2
 script = ExtResource("12_mn07b")
 metadata/_custom_type_script = "uid://338b5flknesn"
 
-[node name="WaveLabel2" type="Label" parent="WaveBar/StackContainer"]
+[node name="CurrentWave" type="Label" parent="WaveBar/StackContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Wave 1"
 label_settings = SubResource("LabelSettings_mn07b")
 vertical_alignment = 2
 
-[node name="WaveLabel3" type="Label" parent="WaveBar/StackContainer"]
+[node name="RemainingEnemies" type="Label" parent="WaveBar/StackContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 text = "10 enemies remain"

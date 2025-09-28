@@ -141,7 +141,6 @@ nav_region = NodePath("NavigationRegion2D")
 
 [node name="EditorLight" type="PointLight2D" parent="."]
 scale = Vector2(12.566406, 11.75651)
-editor_only = true
 energy = 0.5
 texture = SubResource("GradientTexture2D_f2txt")
 texture_scale = 12.0

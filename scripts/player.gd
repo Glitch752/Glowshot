@@ -54,14 +54,13 @@ func _physics_process(delta: float) -> void:
     active_light.visible = GameLoopManager.bullets_held > 0
 
     var pressed = Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT)
-    if pressed and not was_pressed:
+    if pressed and not was_pressed and not GameLoopManager.end_wave_menu_open:
         var bullet_direction = Vector2.RIGHT.rotated(rotation)
         var bullet_origin = global_position + bullet_direction * GUN_DISTANCE
         
         var tilemap: TileMapLayer = get_tree().current_scene.get_node("%WallLayer")
         if GameLoopManager.bullets_held == 0 or tilemap.filled_at_position(bullet_origin):
-            # TODO: Play "no bullet" click sound
-            pass
+            $EmptyGunClickSound.play()
         else:
             # Fire a bullet
             GameLoopManager.bullets_held -= 1
@@ -75,5 +74,7 @@ func _physics_process(delta: float) -> void:
 
             # Apply backward impulse
             velocity -= bullet_direction * RECOIL_AMOUNT
+            
+            $GunshotSound.play()
     
     was_pressed = pressed

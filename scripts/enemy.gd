@@ -17,6 +17,14 @@ func _ready() -> void:
 
 func kill():
     queue_free()
+    GameLoopManager.wave_enemies_killed += 1
+    
+    var death_particles = preload("res://enemyDeathParticles.tscn").instantiate()
+    death_particles.global_position = global_position
+    get_tree().current_scene.add_child(death_particles)
+    death_particles.color = $Sprite2D.modulate
+
+    AudioManager.play_sound_at(preload("res://audio/squish.ogg"), global_position, 4)
 
 func _physics_process(delta: float) -> void:
     navigation_agent.target_position = GameLoopManager.player_pos
@@ -54,8 +62,6 @@ func _move(velocity: Vector2):
 
 
 
-
 func _on_area_2d_area_entered(area: Area2D) -> void:
-    print(area)
     if area.is_in_group("player"):
         GameLoopManager.take_damage(0.1)

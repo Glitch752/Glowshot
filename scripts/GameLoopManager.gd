@@ -5,11 +5,17 @@ var player_pos: Vector2 = Vector2.ZERO
 signal bullets_changed(new: int)
 signal health_changed(new: float)
 signal wave_changed(new: int)
+signal enemies_remaining_changed(new: int)
 
 signal end_wave()
 
 ## Emitted when an enemy should be spawened.
 signal spawn_enemy()
+
+var end_wave_menu_open: bool = false
+
+var brightness_upgrade_level: int = 1
+var damage_upgrade_level: int = 1
 
 var max_bullets: int = 3
 var bullets_held: int = 3:
@@ -30,7 +36,16 @@ var wave: int = 0:
 var wave_enemies_spawned: int = 0
 var wave_enemies_total: int:
     get():
-        return 5 + wave * 2
+        # return 3 + wave * 5
+        return 1
+
+var wave_enemies_killed: int = 0:
+    set(val):
+        wave_enemies_killed = val
+        enemies_remaining_changed.emit(wave_enemies_remaining)
+var wave_enemies_remaining: int:
+    get():
+        return wave_enemies_total - wave_enemies_killed
 
 var wave_spawn_interval: float:
     get():
@@ -43,6 +58,7 @@ func take_damage(amount: float):
 func begin_wave():
     wave += 1
     wave_enemies_spawned = 0
+    wave_enemies_killed = 0
 
     var t = create_tween()
     t.set_loops(wave_enemies_total)

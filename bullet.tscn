@@ -118,7 +118,7 @@ shape = SubResource("RectangleShape2D_rtl8c")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 show_behind_parent = true
 rotation = -0.3351032
-amount = 300
+amount = 200
 lifetime = 2.0
 visibility_rect = Rect2(-1000, -1000, 2000, 2000)
 process_material = SubResource("ParticleProcessMaterial_t2bd8")
